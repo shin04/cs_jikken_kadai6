@@ -1,3 +1,4 @@
+create table if not exists users (name varchar(64), password varchar(64), token varchar(16));
 create table if not exists langs (id integer primary key autoincrement, name varchar(64), score integer, filename varchar(64));
 insert into langs (name, score, filename) values ('c', 0, 'c.png');
 insert into langs (name, score, filename) values ('c++', 0, 'cpp.png');

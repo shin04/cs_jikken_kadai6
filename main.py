@@ -22,14 +22,14 @@ HTML_HEAD = '<html lang="ja">\n' \
             '<link rel="stylesheet" type="text/css" href="./css/main.css">\n' \
             '</head>\n'
 
-def init_db():
-    con = sqlite3.connect(DBNAME)
-    cur = con.cursor()
-    create_table = 'create table if not exists users (name varchar(64), password varchar(64), token varchar(16))'
-    cur.execute(create_table)
-    con.commit()
-    cur.close()
-    con.close()
+# def init_db():
+#     con = sqlite3.connect(DBNAME)
+#     cur = con.cursor()
+#     create_table = 'create table if not exists users (name varchar(64), password varchar(64), token varchar(16))'
+#     cur.execute(create_table)
+#     con.commit()
+#     cur.close()
+#     con.close()
 
 def hashing(name, password):
     hash = hashlib.sha256()
@@ -204,6 +204,7 @@ def logout(environ, start_response):
             '</html>\n'
     html = html.encode('utf-8')
 
+    token = ''
     start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8'),
         ('Content-Length', str(len(html))), set_cookie_header('token', token)])
     return [html]
@@ -457,6 +458,6 @@ if __name__ == '__main__':
     if len(sys.argv) == 2:
         port = int(sys.argv[1])
 
-    init_db()
+    # init_db()
     server = simple_server.make_server('', port, main)
     server.serve_forever()
